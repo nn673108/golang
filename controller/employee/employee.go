@@ -27,3 +27,34 @@ func DELETE(c *gin.Context) {
 		"message": "Employee Delete Method!",
 	})
 }
+
+// GET By ID
+func GetEmployeeByID(c *gin.Context) {
+	id := c.Param("id")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "GET GET" + id,
+	})
+}
+
+func PostEmployeeByID(c *gin.Context) {
+	id := c.Param("id")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "POST POST" + id,
+	})
+}
+
+//GET By ID
+
+func PUTEmployeeByID(c *gin.Context) {
+	id := c.Param("id")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "PUT PUT" + id,
+	})
+}
+
+func DELETEEmployeeByID(c *gin.Context) {
+	id := c.Param("id")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "get out" + id,
+	})
+}

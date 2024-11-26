@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "itdev.cmtc.ac.th",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "GO07",
+            "database": "db_67319010008",
+            "username": "root",
+            "password": "p@sswd@2024",
+            "connectionTimeout": 30
+        }
+    ]
+}
