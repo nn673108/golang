@@ -9,24 +9,24 @@ import (
 // empployee API Metod
 func main() {
 	r := gin.Default()
-	r.GET("/employee", func(c *gin.Context) {
+	r.GET("/employees", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Informaion Technology",
 		})
 	})
 	//Default API Method
 
-	r.POST("/employee", func(c *gin.Context) {
+	r.POST("/employees", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "I top1 err",
 		})
 	})
-	r.PUT("/employee", func(c *gin.Context) {
+	r.PUT("/employees", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "I top err",
 		})
 	})
-	r.DELETE("/employee", func(c *gin.Context) {
+	r.DELETE("/employees", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "I top err2",
 		})

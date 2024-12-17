@@ -9,10 +9,10 @@ import (
 // empployee API Metod
 func main() {
 	r := gin.Default()
-	r.GET("/employee", getemployee)
-	r.POST("/employee", postemployee)
-	r.PUT("/employee", putemployee)
-	r.DELETE("/employee", deleteemployee)
+	r.GET("/employees", getemployee)
+	r.POST("/employees", postemployee)
+	r.PUT("/employees", putemployee)
+	r.DELETE("/employees", deleteemployee)
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

@@ -1,0 +1,1 @@
+DROP VIEW v_high_salary_employees;
