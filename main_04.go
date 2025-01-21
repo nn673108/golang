@@ -30,10 +30,8 @@ func main() {
 	router.PUT("/employees/:id", EmployeeController.PUTEmployeeByID)       //GET By ID
 	router.DELETE("/employees/:id", EmployeeController.DELETEEmployeeByID) //GET By ID
 
-	router.GET("/employeesdb", EmployeeController.GetEmployeeDB)       //GET DB
-	router.POST("/employeesdb", EmployeeController.PostEmployeeDB)     //GET DB
-	router.PUT("/employeesdb", EmployeeController.PUTEmployeeDB)       //GET DB
-	router.DELETE("/employeesdb", EmployeeController.DELETEEmployeeDB) //GET DB
+	router.GET("/employeesdb", EmployeeController.GetEmployeeDB)   //GET DB
+	router.POST("/employeesdb", EmployeeController.PostEmployeeDB) //GET DB
 
 	router.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

@@ -9,11 +9,11 @@ import (
 )
 
 type Tbl_employee struct {
-	Emp_id         int
+	Emp_id         int `gorm:"primaryKey"`
 	Emp_firstname  string
 	Emp_lastname   string
-	Emp_salary     float64
 	Emp_department string
+	Emp_salary     float64
 }
 
 // Biding from Employee JSON
@@ -25,64 +25,30 @@ type EmployeeBody struct {
 	Emp_salary     float64 `json:"emp_salary" binding:"required"`
 }
 
-// GET
-func GET(c *gin.Context) {
+func GetEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Employee GET Method!",
 	})
 }
-func POST(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Employee Post Method!",
-	})
-}
-func PUT(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Employee Put Method!",
-	})
-}
-func DELETE(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Employee Delete Method!",
-	})
+
+func GetEmployeeDB(c *gin.Context) {
+	var employees []Tbl_employee
+	db.Db.Find(&employees)
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Employee Read Success", "employees": employees})
 }
 
 // GET By ID
 func GetEmployeeByID(c *gin.Context) {
 	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "GET GET" + id,
-	})
-}
-
-func PostEmployeeByID(c *gin.Context) {
-	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "POST POST" + id,
-	})
-}
-
-//GET By ID
-
-func PUTEmployeeByID(c *gin.Context) {
-	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "PUT PUT" + id,
-	})
-}
-
-func DELETEEmployeeByID(c *gin.Context) {
-	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "get out" + id,
-	})
-}
-
-// get DB
-func GetEmployeeDB(c *gin.Context) {
 	var employees []Tbl_employee
-	db.Db.Find(&employees)
+	db.Db.First(&employees, id)
 	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Employee Read Success", "employees": employees})
+}
+
+func PostEmployee(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Employee POST Method!",
+	})
 }
 
 // POST Employee to Database
@@ -103,13 +69,43 @@ func PostEmployeeDB(c *gin.Context) {
 
 }
 
-func PUTEmployeeDB(c *gin.Context) {
-	var employees []Tbl_employee
-	db.Db.Find(&employees)
-	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Employee  Success", "employees": employees})
+func PutEmployee(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Employee PUT Method!",
+	})
 }
-func DELETEEmployeeDB(c *gin.Context) {
+
+// PUT Employee to Database
+func PutEmployeeDB(c *gin.Context) {
+	var json EmployeeBody
+
+	var UpdateEmployees Tbl_employee
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.Db.First(&UpdateEmployees, json.Emp_id)
+	UpdateEmployees.Emp_firstname = json.Emp_firstname
+	UpdateEmployees.Emp_lastname = json.Emp_lastname
+	UpdateEmployees.Emp_department = json.Emp_department
+	UpdateEmployees.Emp_salary = json.Emp_salary
+
+	db.Db.Save(&UpdateEmployees)
+
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "User Updated"})
+
+}
+
+func DeleteEmployee(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Employee DELETE Method!",
+	})
+}
+
+func DeleteEmployeeDB(c *gin.Context) {
+	id := c.Param("id")
 	var employees []Tbl_employee
-	db.Db.Find(&employees)
-	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Employee Delete Success", "employees": employees})
+	db.Db.Delete(&employees, "emp_id = ?", id)
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Delete Profit Success"})
 }
